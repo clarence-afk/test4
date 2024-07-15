@@ -41,15 +41,14 @@ float arc(vec2 pt, vec2 center, float radius, float percent){
 
 void main (void)
 {
-  vec4 bgColor = vec4(0.0, 0.0, 0.0, 1.0); // Background color remains black
-  vec4 arcColor = vec4(0.0, 0.0, 1.0, 1.0); // Arc color changed to blue
+  vec4 bgColor = vec4(0.0, 0.0, 0.5, 1.0);
+  vec4 arcColor = vec4(0.8, 0.9, 1.0, 1.0);
   vec2 center = vec2(0.5);
   vec4 color = vec4(0.0);
   color += circle(vUv, center, 0.5) * bgColor;
   color += arc(vUv, center, 0.4, uProgress) * arcColor;
-  gl_FragColor = color;
-}
-
+  gl_FragColor = color; 
+}`
 
 class RingProgressMesh extends Mesh{
     constructor( scale = 1 ){
