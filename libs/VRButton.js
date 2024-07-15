@@ -194,12 +194,18 @@ class VRButton{
         element.style.opacity = '0.5';
         element.style.outline = 'none';
         element.style.zIndex = '999';
+
+        element.style.transition = 'background-color 0.3s ease';
+        element.style.backgroundColor = '#0a0a23'; // Original background color
+        element.onmouseover = function () {
+            this.style.backgroundColor = '#002ead'; // Change on hover
+        };
+        element.onmouseout = function () {
+            this.style.backgroundColor = '#0a0a23'; // Revert on mouse out
+        };
     }
 
-    // Additional method to handle hover effect
-    stylizeHover(element, color) {
-        element.style.backgroundColor = color; // Change background color on hover
-    }
+    
 
 		
 
