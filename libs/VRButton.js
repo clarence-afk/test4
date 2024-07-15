@@ -6,35 +6,35 @@
 
 class VRButton{
 
-    constructor(renderer, options) {
+	constructor( renderer, options ) {
         this.renderer = renderer;
-        if (options !== undefined) {
+        if (options !== undefined){
             this.onSessionStart = options.onSessionStart;
             this.onSessionEnd = options.onSessionEnd;
             this.sessionInit = options.sessionInit;
-            this.sessionMode = (options.inline !== undefined && options.inline) ? 'inline' : 'immersive-vr';
-        } else {
+            this.sessionMode = ( options.inline !== undefined && options.inline ) ? 'inline' : 'immersive-vr';
+        }else{
             this.sessionMode = 'immersive-vr';
         }
+        
+       if (this.sessionInit === undefined ) this.sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor' ] };
+        
+        if ( 'xr' in navigator ) {
 
-        if (this.sessionInit === undefined) this.sessionInit = { optionalFeatures: ['local-floor', 'bounded-floor'] };
+			const button = document.createElement( 'button' );
+			button.style.display = 'none';
+            button.style.height = '40px';
+            
+			navigator.xr.isSessionSupported( this.sessionMode ).then( ( supported ) => {
 
-        if ('xr' in navigator) {
-            const button = document.createElement('button');
-            button.style.display = 'none';
-            button.style.height = '40px'; // Set equal height and width
-            button.style.width = '40px'; // Set equal height and width
-            button.style.borderRadius = '50%'; // Make the button circular
-            button.style.position = 'fixed'; // Center the button
-            button.style.top = '50%';
-            button.style.left = '50%';
-            button.style.transform = 'translate(-50%, -50%)'; // Ensure centering
-            navigator.xr.isSessionSupported(this.sessionMode).then((supported) => {
-                supported ? this.showEnterVR(button) : this.showWebXRNotFound(button);
-                if (options && options.vrStatus) options.vrStatus(supported);
-            });
-            document.body.appendChild(button);
-        } else {
+				supported ? this.showEnterVR( button ) : this.showWebXRNotFound( button );
+                if (options && options.vrStatus) options.vrStatus( supported );
+                
+			} );
+            
+            document.body.appendChild( button );
+
+		} else {
 
 			const message = document.createElement( 'a' );
 
@@ -179,13 +179,12 @@ class VRButton{
 
     }
 
-    stylizeElement( element, active = true, fontSize = 13, ignorePadding = false ) {
-
+    stylizeElement(element, active = true, fontSize = 13, ignorePadding = false) {
         element.style.position = 'absolute';
         element.style.bottom = '20px';
         if (!ignorePadding) element.style.padding = '12px 6px';
         element.style.border = '1px solid #fff';
-        element.style.borderRadius = '4px';
+        element.style.borderRadius = '50%'; // Ensure the element remains circular
         element.style.background = (active) ? 'rgba(20,150,80,1)' : 'rgba(180,20,20,1)';
         element.style.color = '#fff';
         element.style.font = `normal ${fontSize}px sans-serif`;
@@ -193,7 +192,11 @@ class VRButton{
         element.style.opacity = '0.5';
         element.style.outline = 'none';
         element.style.zIndex = '999';
+    }
 
+    // Additional method to handle hover effect
+    stylizeHover(element, color) {
+        element.style.backgroundColor = color; // Change background color on hover
     }
 
 		
