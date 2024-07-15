@@ -22,7 +22,9 @@ class VRButton{
         if ('xr' in navigator) {
             const button = document.createElement('button');
             button.style.display = 'none';
-            button.style.height = '40px';
+            button.style.height = '40px'; // Set equal height and width
+            button.style.width = '40px'; // Set equal height and width
+            button.style.borderRadius = '50%'; // Make the button circular
             button.style.position = 'fixed'; // Center the button
             button.style.top = '50%';
             button.style.left = '50%';
@@ -177,7 +179,8 @@ class VRButton{
 
     }
 
-    stylizeElement(element, active = true, fontSize = 13, ignorePadding = false) {
+    stylizeElement( element, active = true, fontSize = 13, ignorePadding = false ) {
+
         element.style.position = 'absolute';
         element.style.bottom = '20px';
         if (!ignorePadding) element.style.padding = '12px 6px';
@@ -190,10 +193,7 @@ class VRButton{
         element.style.opacity = '0.5';
         element.style.outline = 'none';
         element.style.zIndex = '999';
-    }
 
-    stylizeHover(element, color) {
-        element.style.backgroundColor = color; // Change background color on hover
     }
 
 		
