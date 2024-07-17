@@ -11,7 +11,7 @@ import { GazeController } from './libs/GazeController.js'
 import { XRControllerModelFactory } from './libs/three/jsm/XRControllerModelFactory.js';
 
 class App{
-    constructor() {
+	constructor() {
         const container = document.createElement('div');
         document.body.appendChild(container);
 
